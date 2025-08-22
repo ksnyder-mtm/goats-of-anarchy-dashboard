@@ -81,7 +81,7 @@ export function generateLogoSVG(nonprofitName: string, nonprofitType: string, br
     .substring(0, 3)
     .toUpperCase();
 
-  const shapes = {
+  const shapes: { [key: string]: string } = {
     'Animal Welfare': `
       <path d="M25 45 Q20 30 25 25 Q30 20 35 25 Q40 30 35 45 Z" fill="${branding.secondaryColor}" opacity="0.7"/>
       <circle cx="30" cy="35" r="12" fill="${branding.primaryColor}"/>

@@ -59,6 +59,7 @@ const Dashboard: React.FC = () => {
     document.documentElement.style.setProperty('--bg-color', generatedBranding.backgroundColor);
     document.documentElement.style.setProperty('--text-color', generatedBranding.textColor);
     document.body.style.fontFamily = generatedBranding.fontFamily;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDragEnd = (event: DragEndEvent) => {
