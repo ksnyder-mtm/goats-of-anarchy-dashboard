@@ -14,7 +14,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { BoardTopic, TopicStatus } from '../types';
+import { BoardTopic, TopicStatus, Priority } from '../types';
 import TopicCard from './TopicCard';
 import { generateBranding, generateLogoSVG, BrandingConfig } from '../utils/brandingSystem';
 import { generateTopics } from '../utils/topicGenerator';
@@ -89,6 +89,14 @@ const Dashboard: React.FC = () => {
     setTopics((prevTopics) =>
       prevTopics.map((topic) =>
         topic.id === id ? { ...topic, estimatedMinutes: minutes } : topic
+      )
+    );
+  };
+
+  const handlePriorityChange = (id: string, priority: Priority) => {
+    setTopics((prevTopics) =>
+      prevTopics.map((topic) =>
+        topic.id === id ? { ...topic, priority } : topic
       )
     );
   };
@@ -210,6 +218,7 @@ const Dashboard: React.FC = () => {
                     branding={branding}
                     onStatusChange={handleStatusChange}
                     onTimeChange={handleTimeChange}
+                    onPriorityChange={handlePriorityChange}
                   />
                 ))}
               </div>

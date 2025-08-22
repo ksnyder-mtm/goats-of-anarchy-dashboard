@@ -78,51 +78,147 @@ export function generateLogoSVG(nonprofitName: string, nonprofitType: string, br
     .split(' ')
     .map(word => word[0])
     .join('')
-    .substring(0, 3)
+    .substring(0, 2)
     .toUpperCase();
 
   const shapes: { [key: string]: string } = {
     'Animal Welfare': `
-      <path d="M25 45 Q20 30 25 25 Q30 20 35 25 Q40 30 35 45 Z" fill="${branding.secondaryColor}" opacity="0.7"/>
-      <circle cx="30" cy="35" r="12" fill="${branding.primaryColor}"/>
-      <path d="M22 32 Q25 28 30 28 Q35 28 38 32" stroke="white" stroke-width="2" fill="none"/>
-      <circle cx="25" cy="35" r="1.5" fill="white"/>
-      <circle cx="35" cy="35" r="1.5" fill="white"/>
+      <defs>
+        <linearGradient id="goatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:${branding.primaryColor};stop-opacity:1" />
+          <stop offset="100%" style="stop-color:${branding.secondaryColor};stop-opacity:1" />
+        </linearGradient>
+        <filter id="shadow">
+          <feDropShadow dx="0" dy="1" stdDeviation="1" flood-opacity="0.2"/>
+        </filter>
+      </defs>
+      <!-- Goat silhouette -->
+      <g transform="translate(30, 30) scale(0.8)">
+        <!-- Body -->
+        <ellipse cx="0" cy="3" rx="12" ry="8" fill="url(#goatGrad)" filter="url(#shadow)"/>
+        <!-- Head -->
+        <ellipse cx="-8" cy="-2" rx="6" ry="5" fill="url(#goatGrad)"/>
+        <!-- Horns -->
+        <path d="M-10 -5 L-11 -9" stroke="${branding.primaryColor}" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M-6 -5 L-5 -9" stroke="${branding.primaryColor}" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Legs -->
+        <rect x="-8" y="8" width="2" height="6" fill="${branding.primaryColor}" rx="1"/>
+        <rect x="-3" y="8" width="2" height="6" fill="${branding.primaryColor}" rx="1"/>
+        <rect x="2" y="8" width="2" height="6" fill="${branding.primaryColor}" rx="1"/>
+        <rect x="7" y="8" width="2" height="6" fill="${branding.primaryColor}" rx="1"/>
+        <!-- Eye -->
+        <circle cx="-8" cy="-2" r="1" fill="white"/>
+        <circle cx="-8" cy="-2" r="0.5" fill="#333"/>
+        <!-- Tail -->
+        <path d="M10 2 Q13 0 12 -3" stroke="${branding.primaryColor}" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </g>
     `,
     'Education': `
-      <rect x="20" y="25" width="20" height="25" fill="${branding.secondaryColor}" rx="2"/>
-      <path d="M15 20 L30 10 L45 20 L30 30 Z" fill="${branding.primaryColor}"/>
-      <circle cx="30" cy="20" r="3" fill="${branding.accentColor}"/>
+      <defs>
+        <linearGradient id="eduGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:${branding.primaryColor};stop-opacity:1" />
+          <stop offset="100%" style="stop-color:${branding.secondaryColor};stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <!-- Graduation cap -->
+      <g transform="translate(30, 28)">
+        <path d="M0 -8 L-15 0 L0 8 L15 0 Z" fill="url(#eduGrad)"/>
+        <path d="M0 8 L0 12 L-12 6 L-12 2" fill="${branding.secondaryColor}"/>
+        <path d="M0 8 L0 12 L12 6 L12 2" fill="${branding.secondaryColor}"/>
+        <!-- Tassel -->
+        <line x1="15" y1="0" x2="20" y2="5" stroke="${branding.accentColor}" stroke-width="2"/>
+        <circle cx="20" cy="8" r="2" fill="${branding.accentColor}"/>
+      </g>
+      <!-- Book base -->
+      <rect x="18" y="38" width="24" height="3" fill="${branding.primaryColor}" rx="1"/>
     `,
     'Healthcare': `
-      <rect x="25" y="15" width="10" height="30" fill="${branding.primaryColor}" rx="2"/>
-      <rect x="15" y="25" width="30" height="10" fill="${branding.primaryColor}" rx="2"/>
-      <circle cx="30" cy="30" r="18" fill="none" stroke="${branding.secondaryColor}" stroke-width="2"/>
+      <defs>
+        <linearGradient id="healthGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:${branding.primaryColor};stop-opacity:1" />
+          <stop offset="100%" style="stop-color:${branding.secondaryColor};stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <!-- Medical cross with heart -->
+      <g transform="translate(30, 30)">
+        <!-- Heart background -->
+        <path d="M0 -5 C-5 -12, -15 -12, -15 -5 C-15 0, -10 5, 0 12 C10 5, 15 0, 15 -5 C15 -12, 5 -12, 0 -5 Z" 
+              fill="${branding.secondaryColor}" opacity="0.3" transform="scale(1.2)"/>
+        <!-- Medical cross -->
+        <rect x="-3" y="-12" width="6" height="24" fill="url(#healthGrad)" rx="2"/>
+        <rect x="-12" y="-3" width="24" height="6" fill="url(#healthGrad)" rx="2"/>
+      </g>
     `,
     'Environment': `
-      <path d="M30 45 Q20 35 20 25 Q20 15 30 10 Q40 15 40 25 Q40 35 30 45 Z" fill="${branding.primaryColor}"/>
-      <path d="M30 20 L30 35" stroke="${branding.backgroundColor}" stroke-width="2"/>
-      <path d="M25 25 L30 30 L35 25" stroke="${branding.backgroundColor}" stroke-width="2"/>
+      <defs>
+        <linearGradient id="envGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:${branding.primaryColor};stop-opacity:1" />
+          <stop offset="100%" style="stop-color:${branding.secondaryColor};stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <!-- Tree with leaves -->
+      <g transform="translate(30, 30)">
+        <!-- Trunk -->
+        <rect x="-3" y="5" width="6" height="10" fill="${branding.secondaryColor}" rx="1"/>
+        <!-- Tree crown layers -->
+        <circle cx="0" cy="-5" r="8" fill="url(#envGrad)"/>
+        <circle cx="-6" cy="0" r="6" fill="url(#envGrad)"/>
+        <circle cx="6" cy="0" r="6" fill="url(#envGrad)"/>
+        <circle cx="0" cy="3" r="7" fill="url(#envGrad)"/>
+        <!-- Leaf details -->
+        <circle cx="-3" cy="-3" r="1" fill="${branding.backgroundColor}" opacity="0.6"/>
+        <circle cx="3" cy="-1" r="1" fill="${branding.backgroundColor}" opacity="0.6"/>
+        <circle cx="0" cy="2" r="1" fill="${branding.backgroundColor}" opacity="0.6"/>
+      </g>
     `,
     'Food Bank': `
-      <rect x="18" y="25" width="24" height="20" fill="${branding.secondaryColor}" rx="3"/>
-      <path d="M20 25 Q30 15 40 25" fill="${branding.primaryColor}"/>
-      <circle cx="25" cy="32" r="3" fill="${branding.backgroundColor}"/>
-      <circle cx="35" cy="32" r="3" fill="${branding.backgroundColor}"/>
+      <defs>
+        <linearGradient id="foodGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:${branding.primaryColor};stop-opacity:1" />
+          <stop offset="100%" style="stop-color:${branding.secondaryColor};stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <!-- Shopping basket with food -->
+      <g transform="translate(30, 30)">
+        <!-- Basket -->
+        <path d="M-12 0 L-10 12 L10 12 L12 0" stroke="url(#foodGrad)" stroke-width="2" fill="none"/>
+        <path d="M-12 0 L12 0" stroke="url(#foodGrad)" stroke-width="2"/>
+        <!-- Handle -->
+        <path d="M-8 0 Q0 -8 8 0" stroke="${branding.primaryColor}" stroke-width="2" fill="none"/>
+        <!-- Food items -->
+        <circle cx="-4" cy="5" r="3" fill="${branding.accentColor}"/>
+        <ellipse cx="4" cy="6" rx="4" ry="3" fill="${branding.secondaryColor}"/>
+        <rect x="-2" y="3" width="4" height="6" fill="${branding.primaryColor}" rx="1"/>
+      </g>
     `,
     'Default': `
-      <circle cx="30" cy="30" r="20" fill="${branding.primaryColor}"/>
-      <polygon points="30,15 35,25 45,25 37,33 40,43 30,37 20,43 23,33 15,25 25,25" fill="${branding.backgroundColor}"/>
+      <defs>
+        <linearGradient id="defaultGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:${branding.primaryColor};stop-opacity:1" />
+          <stop offset="100%" style="stop-color:${branding.secondaryColor};stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <!-- Star with circle -->
+      <circle cx="30" cy="30" r="18" fill="url(#defaultGrad)" opacity="0.9"/>
+      <path d="M30 18 L33 25 L40 25 L34 30 L37 37 L30 33 L23 37 L26 30 L20 25 L27 25 Z" 
+            fill="${branding.backgroundColor}"/>
     `
   };
 
   const shapeContent = shapes[nonprofitType] || shapes['Default'];
 
   return `
-    <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-      <rect width="60" height="60" rx="12" fill="${branding.backgroundColor}"/>
+    <svg width="80" height="80" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="logoShadow">
+          <feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity="0.15"/>
+        </filter>
+      </defs>
+      <rect width="60" height="60" rx="14" fill="${branding.backgroundColor}" filter="url(#logoShadow)"/>
+      <rect width="60" height="60" rx="14" fill="white" opacity="0.9"/>
       ${shapeContent}
-      <text x="30" y="52" font-family="${branding.fontFamily}" font-size="8" font-weight="bold" fill="${branding.textColor}" text-anchor="middle">
+      <text x="30" y="54" font-family="${branding.fontFamily}" font-size="6" font-weight="800" 
+            fill="${branding.textColor}" text-anchor="middle" opacity="0.8" letter-spacing="1">
         ${initials}
       </text>
     </svg>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { BoardTopic, TopicStatus } from '../types';
-import { Clock, ChevronDown, ChevronUp, GripVertical } from 'lucide-react';
+import { BoardTopic, TopicStatus, Priority } from '../types';
+import { Clock, ChevronDown, ChevronUp, GripVertical, AlertCircle } from 'lucide-react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
@@ -9,12 +9,14 @@ interface TopicCardProps {
   branding: any;
   onStatusChange: (id: string, status: TopicStatus) => void;
   onTimeChange: (id: string, minutes: number) => void;
+  onPriorityChange: (id: string, priority: Priority) => void;
 }
 
-const TopicCard: React.FC<TopicCardProps> = ({ topic, branding, onStatusChange, onTimeChange }) => {
+const TopicCard: React.FC<TopicCardProps> = ({ topic, branding, onStatusChange, onTimeChange, onPriorityChange }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [tempTime, setTempTime] = useState(topic.estimatedMinutes.toString());
+  const [isEditingPriority, setIsEditingPriority] = useState(false);
 
   const {
     attributes,
@@ -64,12 +66,69 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, branding, onStatusChange, 
         <div className="drag-handle" {...attributes} {...listeners}>
           <GripVertical size={20} color={branding.textColor} />
         </div>
-        <div className="priority-badge" style={{
-          backgroundColor: priorityColors[topic.priority].bg,
-          borderColor: priorityColors[topic.priority].border
-        }}>
-          {topic.priority.toUpperCase()}
-        </div>
+        {isEditingPriority ? (
+          <div className="priority-selector">
+            <button
+              className="priority-option"
+              onClick={() => {
+                onPriorityChange(topic.id, 'low');
+                setIsEditingPriority(false);
+              }}
+              style={{
+                backgroundColor: priorityColors.low.bg,
+                borderColor: priorityColors.low.border,
+                borderWidth: '2px',
+                borderStyle: 'solid'
+              }}
+            >
+              LOW
+            </button>
+            <button
+              className="priority-option"
+              onClick={() => {
+                onPriorityChange(topic.id, 'medium');
+                setIsEditingPriority(false);
+              }}
+              style={{
+                backgroundColor: priorityColors.medium.bg,
+                borderColor: priorityColors.medium.border,
+                borderWidth: '2px',
+                borderStyle: 'solid'
+              }}
+            >
+              MEDIUM
+            </button>
+            <button
+              className="priority-option"
+              onClick={() => {
+                onPriorityChange(topic.id, 'high');
+                setIsEditingPriority(false);
+              }}
+              style={{
+                backgroundColor: priorityColors.high.bg,
+                borderColor: priorityColors.high.border,
+                borderWidth: '2px',
+                borderStyle: 'solid'
+              }}
+            >
+              HIGH
+            </button>
+          </div>
+        ) : (
+          <div 
+            className="priority-badge" 
+            onClick={() => setIsEditingPriority(true)}
+            style={{
+              backgroundColor: priorityColors[topic.priority].bg,
+              borderColor: priorityColors[topic.priority].border,
+              cursor: 'pointer'
+            }}
+            title="Click to change priority"
+          >
+            <AlertCircle size={12} style={{ marginRight: '4px', display: 'inline-block', verticalAlign: 'middle' }} />
+            {topic.priority.toUpperCase()}
+          </div>
+        )}
         <div className="status-indicator" style={{ backgroundColor: statusColors[topic.status] }} />
       </div>
 
