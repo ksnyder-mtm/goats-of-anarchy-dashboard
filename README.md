@@ -1,46 +1,186 @@
-# Getting Started with Create React App
+# Goats of Anarchy Board Meeting Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, interactive dashboard for nonprofit board meetings featuring AI-generated branding, drag-and-drop topic management, and PDF export capabilities.
+
+## Features
+
+### Core Functionality
+- **Instant Dashboard Display** - No login required, immediate access to meeting tools
+- **Smart Branding System** - Automatically generates logos and color schemes based on nonprofit type
+- **Interactive Topic Cards** - Manage board meeting agenda items with ease
+- **Drag-and-Drop Reordering** - Prioritize topics by dragging cards to reorder
+- **Status Tracking** - Track progress with four states: Not Started, In Progress, Completed, Deferred
+- **Time Management** - Editable time estimates for each agenda item
+- **PDF Export** - Generate professional meeting summaries for documentation
+
+### Design Features
+- **Responsive Design** - Optimized for desktop presentation and mobile viewing
+- **Hover Details** - Expanded descriptions appear on hover for more context
+- **Color-Coded Priorities** - Visual indicators for High, Medium, and Low priority items
+- **Professional Aesthetic** - Warm, engaging nonprofit design that's board-ready
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/goats-of-anarchy-dashboard.git
+cd goats-of-anarchy-dashboard
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm start
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) to view the dashboard
+
+## Configuration
+
+The dashboard comes pre-configured with:
+- **Organization**: Goats of Anarchy
+- **Type**: Animal Welfare
+- **Sample Topics**:
+  - $10 Million Fundraising Campaign
+  - Potato Chip Bag of Cash Given by Eric Adams
+  - Planning Friendly Gala (with a "goat" check)
+
+To customize for your organization, modify the values in `src/components/Dashboard.tsx`:
+
+```typescript
+const nonprofitType = 'Your Nonprofit Type';
+const nonprofitName = 'Your Organization Name';
+const topicTitles = [
+  'Your First Topic',
+  'Your Second Topic',
+  'Your Third Topic'
+];
+```
+
+## Supported Nonprofit Types
+
+The branding system includes optimized templates for:
+- Animal Welfare (warm oranges)
+- Education (professional blues)
+- Healthcare (calming blues/greens)
+- Environment (natural greens)
+- Food Bank (harvest colors)
+- Default (modern purple/pink)
+
+## Usage Guide
+
+### Managing Topics
+
+1. **View Details**: Hover over any topic card to see the detailed description
+2. **Reorder Topics**: Click and drag the grip icon (⋮⋮) to reorder cards
+3. **Update Status**: Click status buttons to track progress
+4. **Edit Time**: Click on the time estimate to edit expected duration
+
+### Exporting to PDF
+
+1. Click the "Export PDF" button in the header
+2. The system will capture the current dashboard state
+3. A PDF file will be downloaded with the meeting summary
+
+### Resetting the Dashboard
+
+Click the "Reset" button to restore all topics to their original state and order.
+
+## Technical Stack
+
+- **React 19** - Modern React with TypeScript
+- **@dnd-kit** - Accessible drag-and-drop functionality
+- **jsPDF & html2canvas** - PDF generation
+- **Lucide React** - Icon library
+- **TypeScript** - Type-safe development
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── Dashboard.tsx      # Main dashboard component
+│   └── TopicCard.tsx      # Individual topic card component
+├── utils/
+│   ├── brandingSystem.ts  # Logo and color generation
+│   └── topicGenerator.ts  # Topic description generator
+├── types/
+│   └── index.ts          # TypeScript type definitions
+├── App.tsx               # Root application component
+└── App.css              # Global styles
+```
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000)
 
 ### `npm run build`
+Creates an optimized production build in the `build` folder
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `npm test`
+Launches the test runner in interactive watch mode
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Deployment
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Netlify
 
-### `npm run eject`
+1. Build the project: `npm run build`
+2. Deploy the `build` folder to Netlify
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Vercel
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Connect your GitHub repository
+2. Vercel will automatically build and deploy
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### GitHub Pages
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Install gh-pages: `npm install --save-dev gh-pages`
+2. Add to package.json:
+```json
+"homepage": "https://yourusername.github.io/goats-of-anarchy-dashboard",
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+```
+3. Deploy: `npm run deploy`
 
-## Learn More
+## Browser Support
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+MIT License - feel free to use this project for your nonprofit organization.
+
+## Acknowledgments
+
+- Built for nonprofit organizations to enhance board meeting effectiveness
+- Designed with accessibility and usability in mind
+- Special thanks to all nonprofit boards making a difference in their communities
+
+## Support
+
+For issues, questions, or suggestions, please open an issue on GitHub.
+
+---
+
+Made with ❤️ for the nonprofit community
